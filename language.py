@@ -1,10 +1,26 @@
 import sys
 
+def replace_colon_outside_strings(line):
+    result = ""
+    in_string = False
+
+    for i, char in enumerate(line):
+        if (char == '"' or char == "''") and (i == 0 or line[i - 1] != '\\'): # Ignore comments too
+            in_string = not in_string  # Toggle in string flag
+        if char == ':' and not in_string:
+            result += " {"
+        else:
+            result += char
+
+    return result
+
 def transpile_line(line):
     line = line.replace("jhitta", "for")
-    line = line.replace(":", "{")
+    line = line.replace("luhu", "while")
     if line.strip() == "end":
         return "}"
+    
+    line = replace_colon_outside_strings(line)
     return line
 
 def transpile_file(input_path, output_path):

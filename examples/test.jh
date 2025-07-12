@@ -1,3 +1,10 @@
+int test = 1;
+
+luhu (test < 5):
+    printf("this is: %d\n", test);
+    test++;
+end
+
 jhitta (int i = 0; i < 3; i++):
     printf("yo\n");
 end
