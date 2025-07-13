@@ -17,6 +17,8 @@ def replace_colon_outside_strings(line):
 def transpile_line(line):
     line = line.replace("jhitta", "for")
     line = line.replace("luhu", "while")
+    line = line.replace("spittin", "printf")
+    line = line.replace("jawn", "int")
     if line.strip() == "end":
         return "}"
     
@@ -27,15 +29,26 @@ def transpile_file(input_path, output_path):
     with open(input_path, 'r') as f:
         lines = f.readlines()
 
-    transpiled = [transpile_line(line) for line in lines]
+    transpiled_main = []
+    transpiled_header = []
+
+    for line in lines:
+        if line.strip().startswith("#include"):
+            transpiled_header.append(line.strip())
+        else:
+            transpiled_main.append(transpile_line(line)) 
 
     print("Transpiled output:")
-    for line in transpiled:
+    for line in transpiled_header + transpiled_main:
         print(line.rstrip())
 
+
     with open(output_path, 'w') as f:
-        f.write('#include <stdio.h>\n\nint main() {\n')
-        for line in transpiled:
+        for line in transpiled_header:
+            f.write(line + "\n")
+
+        f.write("\nint main() {\n")
+        for line in transpiled_main:
             f.write("    " + line)
         f.write("    return 0;\n}\n")
 

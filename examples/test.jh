@@ -1,10 +1,18 @@
-int test = 1;
+#include <stdlib.h>
+#include <stdio.h>
 
-luhu (test < 5):
-    printf("this is: %d\n", test);
-    test++;
+jawn secret = rand() % 10 + 1;
+jawn tries = 0;
+jawn guess;
+jawn score = 0;
+
+spittin("Please enter your guess 1-10:\n");
+scanf("%d", &guess);
+
+luhu (guess != secret):
+    spittin("Wrong! Try again\n");
+    scanf("%d", &guess); 
+    score++;
 end
 
-jhitta (int i = 0; i < 3; i++):
-    printf("yo\n");
-end
+spittin("You got it in %d tries!\n", score);
